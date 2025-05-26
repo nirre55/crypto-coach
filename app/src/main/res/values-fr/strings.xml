@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CryptoCoach</string>
+    <string name="dashboard">Tableau de bord</string>
+    <string name="education">Éducation</string>
+    <string name="patterns">Patterns de Trading</string>
+    <string name="simulator">Simulateur</string>
+    <string name="settings">Paramètres</string>
+    <string name="about">À Propos</string>
+</resources>
