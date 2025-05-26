@@ -6,4 +6,6 @@
     <string name="simulator">Simulator</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
+
+    <string name="nav_menu">Menu</string>
 </resources>

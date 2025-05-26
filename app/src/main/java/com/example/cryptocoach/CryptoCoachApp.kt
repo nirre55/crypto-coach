@@ -9,11 +9,13 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.cryptocoach.navigation.AppNavGraph
 import com.example.cryptocoach.navigation.Screen
+import com.example.cryptocoach.utils.TestTags
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,7 +47,8 @@ fun CryptoCoachApp() {
                             onClick = {
                                 scope.launch { drawerState.close() }
                                 navController.navigate(screen.route)
-                            }
+                            },
+                            modifier = Modifier.testTag("drawer_${screen.route}")
                         )
                     }
                 }
@@ -57,7 +60,8 @@ fun CryptoCoachApp() {
                     onClick = {
                         scope.launch { drawerState.close() }
                         navController.navigate(Screen.Settings.route)
-                    }
+                    },
+                    modifier = Modifier.testTag(TestTags.DRAWER_SETTINGS)
                 )
 
                 NavigationDrawerItem(
@@ -67,7 +71,8 @@ fun CryptoCoachApp() {
                     onClick = {
                         scope.launch { drawerState.close() }
                         navController.navigate(Screen.About.route)
-                    }
+                    },
+                    modifier = Modifier.testTag(TestTags.DRAWER_ABOUT)
                 )
             }
         }
@@ -78,7 +83,7 @@ fun CryptoCoachApp() {
                     title = { Text("CryptoCoach") },
                     navigationIcon = {
                         IconButton(onClick = { scope.launch { drawerState.open() } }) {
-                            Icon(Icons.Default.Menu, contentDescription = null)
+                            Icon(Icons.Default.Menu, contentDescription = stringResource(R.string.nav_menu))
                         }
                     }
                 )

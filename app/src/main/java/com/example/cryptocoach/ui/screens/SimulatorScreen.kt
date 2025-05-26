@@ -5,9 +5,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.platform.testTag
 import com.example.cryptocoach.R
+import com.example.cryptocoach.utils.TestTags
 
 @Composable
 fun SimulatorScreen() {
-    Text(text = stringResource(R.string.simulator), modifier = Modifier.padding(16.dp))
+    Text(
+        text = stringResource(R.string.simulator),
+        modifier = Modifier
+            .padding(16.dp)
+            .testTag(TestTags.SIMULATOR_TITLE))
 }
