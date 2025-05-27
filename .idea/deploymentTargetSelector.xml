@@ -5,19 +5,13 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="NavGraphTest">
+      <SelectionState runConfigName="SettingsScreenTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="clickingDashboard_navigatesToDashboardScreen()">
+      <SelectionState runConfigName="clickingTheme_showsDialog_andSelectsDark()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="clickingAbout_navigatesToAboutScreen()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="aboutTitle_isVisible()">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="dashboardTitle_isVisible()">
+      <SelectionState runConfigName="clickingLanguage_showsDialog_andSelectsFrench()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
