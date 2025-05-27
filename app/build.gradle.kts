@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.material.icons.extended)
+    implementation(libs.androidx.datastore.preferences)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -58,5 +59,12 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    testImplementation(kotlin("test"))
+    testImplementation(kotlin("test")) // This is org.jetbrains.kotlin:kotlin-test-junit
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.androidx.test.core)
+    // androidx.test.ext.junit is already included via libs.androidx.junit, but let's ensure it's used for testImplementation
+    testImplementation(libs.androidx.junit) // Ensure this is testImplementation if not already
+    testImplementation(libs.robolectric)
+    // datastore-preferences is already an implementation dependency, so it's available for tests.
+    // testImplementation(libs.androidx.datastore.preferences) // No need to explicitly add if already implementation
 }

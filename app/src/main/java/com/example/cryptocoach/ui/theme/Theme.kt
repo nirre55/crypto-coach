@@ -39,18 +39,25 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun CryptoCoachTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    themePreferenceString: String, // Changed: Accept theme preference string
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
+    // Determine actual dark theme based on preference
+    val actualDarkTheme: Boolean = when (themePreferenceString) {
+        "Light" -> false
+        "Dark" -> true
+        else -> isSystemInDarkTheme() // Default to system theme
+    }
+
     val colorScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            if (actualDarkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
 
-        darkTheme -> DarkColorScheme
+        actualDarkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
 
