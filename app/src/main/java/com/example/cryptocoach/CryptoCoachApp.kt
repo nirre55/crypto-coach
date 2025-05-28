@@ -1,6 +1,5 @@
 package com.example.cryptocoach
 
-import android.content.Context
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,6 +9,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.* // Required for collectAsState and rememberUpdatedState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext // Required for context
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -32,32 +32,33 @@ fun AppContentWrapper(
     settingsDataStore: SettingsDataStore,
     content: @Composable () -> Unit
 ) {
-    val language by settingsDataStore.getLanguagePreference().collectAsState(initial = runBlocking { settingsDataStore.getLanguagePreference().first() })
+    val language by settingsDataStore.getLanguagePreference()
+        .collectAsState(initial = runBlocking { settingsDataStore.getLanguagePreference().first() })
     val context = LocalContext.current
+    val configuration = LocalConfiguration.current
 
     LaunchedEffect(language) {
         if (language != SettingsDataStore.DEFAULT_LANGUAGE) {
             val locale = Locale(language)
             Locale.setDefault(locale)
-            val config = Configuration(context.resources.configuration)
+            val config = Configuration(configuration)
             config.setLocale(locale)
             context.resources.updateConfiguration(config, context.resources.displayMetrics)
         } else {
-            // Use system language - reset to default if previously changed
-            val systemLocale = Locale.getDefault() // Or get system default more reliably
-            val config = Configuration(context.resources.configuration)
-            config.setLocale(systemLocale) // This might need to be the original system locale
+            val systemLocale = Locale.getDefault()
+            val config = Configuration(configuration)
+            config.setLocale(systemLocale)
             context.resources.updateConfiguration(config, context.resources.displayMetrics)
         }
     }
-    // Update context for the composable tree
-    val updatedContext = remember(language) {
+
+    val updatedContext = remember(language, configuration) {
         val currentLocale = if (language == SettingsDataStore.DEFAULT_LANGUAGE) {
-            context.resources.configuration.locales[0] // More reliable way to get current/system default
+            configuration.locales[0]
         } else {
             Locale(language)
         }
-        val config = Configuration(context.resources.configuration)
+        val config = Configuration(configuration)
         config.setLocale(currentLocale)
         context.createConfigurationContext(config)
     }
@@ -66,6 +67,7 @@ fun AppContentWrapper(
         content()
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
