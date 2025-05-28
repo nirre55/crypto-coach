@@ -18,4 +18,9 @@ object TestTags {
     const val DRAWER_SETTINGS = "drawer_settings"
     const val DRAWER_ABOUT = "drawer_about"
 
+    const val SETTINGS_SCREEN = "settings_screen"
+    const val SETTINGS_THEME_ITEM = "settings_theme_item"
+    const val SETTINGS_LANGUAGE_ITEM = "settings_language_item"
+    const val THEME_DIALOG = "theme_dialog"
+    const val LANGUAGE_DIALOG = "language_dialog"
 }
