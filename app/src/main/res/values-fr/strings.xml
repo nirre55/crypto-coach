@@ -8,4 +8,15 @@
     <string name="about">À Propos</string>
 
     <string name="nav_menu">Menu</string>
+
+    <string name="theme">Thème</string>
+    <string name="language">Langue</string>
+    <string name="theme_light">Clair</string>
+    <string name="theme_dark">Sombre</string>
+    <string name="theme_system">Suivre le système</string>
+    <string name="language_system">Suivre le système</string>
+    <string name="language_en">Anglais</string>
+    <string name="language_fr">Français</string>
+    <string name="theme_select_title">Sélectionner un thème</string>
+    <string name="language_select_title">Sélectionner la langue</string>
 </resources>
