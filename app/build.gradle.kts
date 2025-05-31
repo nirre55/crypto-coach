@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -15,7 +17,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        //testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.cryptocoach.CustomHiltTestRunner" // Mettez ici le nom complet de votre classe
     }
 
     buildTypes {
@@ -40,6 +43,22 @@ android {
 }
 
 dependencies {
+    // ↓ vos modules internes ↓
+    implementation(project(":core"))
+    implementation(project(":domain"))
+    implementation(project(":data"))
+
+    // Hilt core
+    implementation(libs.hilt.android)
+    kapt         (libs.hilt.compiler)
+
+    // Tests instrumentés
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest         (libs.hilt.compiler)
+
+    // Tests unitaires JVM
+    testImplementation (libs.hilt.android.testing)
+    kaptTest             (libs.hilt.compiler)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

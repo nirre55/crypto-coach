@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.cryptocoach.data.SettingsDataStore // Added import
-import com.example.cryptocoach.data.dataStore // ✅ Import manquant
+import com.example.data.SettingsDataStore
+import com.example.data.dataStore // ✅ Import manquant
 
 
 class MainActivity : ComponentActivity() {

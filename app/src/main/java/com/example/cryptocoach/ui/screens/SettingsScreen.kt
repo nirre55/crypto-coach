@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.testTag
+import com.example.core.SettingsRepository
 import com.example.cryptocoach.R
-import com.example.cryptocoach.data.SettingsRepository
 import com.example.cryptocoach.ui.components.PreferenceItem
 import com.example.cryptocoach.ui.components.SelectionAlertDialog
 import com.example.cryptocoach.utils.TestTags

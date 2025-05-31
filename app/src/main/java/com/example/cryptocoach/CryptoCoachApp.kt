@@ -15,12 +15,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.cryptocoach.data.SettingsDataStore // Added
 import com.example.cryptocoach.navigation.AppNavGraph
 import com.example.cryptocoach.navigation.Screen
 import com.example.cryptocoach.ui.theme.CryptoCoachTheme
 import com.example.cryptocoach.ui.components.DrawerItem
 import com.example.cryptocoach.utils.TestTags
+import com.example.data.SettingsDataStore
 import kotlinx.coroutines.flow.first // For initial language load
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking // For initial language load

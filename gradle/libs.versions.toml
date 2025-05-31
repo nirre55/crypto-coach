@@ -1,11 +1,14 @@
 [versions]
-agp = "8.10.0"
+agp = "8.10.1"
+hiltAndroid = "2.56.2"
+javaxInject = "1"
 kotlin = "2.0.21"
 coreKtx = "1.16.0"
 datastore = "1.1.7"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
+kotlinxCoroutinesCore = "1.8.0"
 lifecycleRuntimeKtx = "2.9.0"
 activityCompose = "1.10.1"
 composeBom = "2025.05.01"
@@ -13,9 +16,15 @@ navigationCompose = "2.9.0"
 kotlinxCoroutinesTest = "1.8.0" # Matches kotlinxCoroutines
 androidxTestCore = "1.6.1"
 datastoreCoreAndroid = "1.1.7"
+jetbrainsKotlinJvm = "2.0.21"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-android-testing = { module = "com.google.dagger:hilt-android-testing", version.ref = "hiltAndroid" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltAndroid" }
+javax-inject = { module = "javax.inject:javax.inject", version.ref = "javaxInject" }
+jetbrains-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 androidx-test-core = { group = "androidx.test", name = "core-ktx", version.ref = "androidxTestCore" } # core-ktx for consistency
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
@@ -40,4 +49,5 @@ androidx-datastore-core-android = { group = "androidx.datastore", name = "datast
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 
