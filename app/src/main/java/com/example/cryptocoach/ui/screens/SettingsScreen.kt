@@ -7,21 +7,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.testTag
-import com.example.core.SettingsRepository
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.cryptocoach.R
 import com.example.cryptocoach.ui.components.PreferenceItem
 import com.example.cryptocoach.ui.components.SelectionAlertDialog
+import com.example.cryptocoach.ui.viewmodel.SettingsViewModel
 import com.example.cryptocoach.utils.TestTags
-import kotlinx.coroutines.launch
 
 @Composable
-fun SettingsScreen(settingsRepo: SettingsRepository) {
-    val scope = rememberCoroutineScope()
-
-    val currentTheme by settingsRepo.getThemePreference()
-        .collectAsState(initial = "System")
-    val currentLanguage by settingsRepo.getLanguagePreference()
-        .collectAsState(initial = "System")
+fun SettingsScreen(
+    viewModel: SettingsViewModel = hiltViewModel()
+) {
+    // On récupère directement le StateFlow exposé par le ViewModel
+    val currentTheme by viewModel.themeState.collectAsState()
+    val currentLanguage by viewModel.languageState.collectAsState()
 
     var showThemeDialog by remember { mutableStateOf(false) }
     var showLanguageDialog by remember { mutableStateOf(false) }
@@ -54,7 +53,8 @@ fun SettingsScreen(settingsRepo: SettingsRepository) {
 
         PreferenceItem(
             title = stringResource(R.string.theme),
-            currentValue = themeOptions.firstOrNull { it.second == currentTheme }?.first ?: currentTheme,
+            currentValue = themeOptions.firstOrNull { it.second == currentTheme }?.first
+                ?: currentTheme,
             onClick = { showThemeDialog = true },
             testTag = TestTags.SETTINGS_THEME_ITEM
         )
@@ -62,34 +62,33 @@ fun SettingsScreen(settingsRepo: SettingsRepository) {
 
         PreferenceItem(
             title = stringResource(R.string.language),
-            currentValue = languageOptions.firstOrNull { it.second == currentLanguage }?.first ?: currentLanguage,
+            currentValue = languageOptions.firstOrNull { it.second == currentLanguage }?.first
+                ?: currentLanguage,
             onClick = { showLanguageDialog = true },
             testTag = TestTags.SETTINGS_LANGUAGE_ITEM
         )
         HorizontalDivider()
     }
 
+    // Boîte de dialogue pour le choix de thème
     SelectionAlertDialog(
         showDialog = showThemeDialog,
         onDismissRequest = { showThemeDialog = false },
         title = stringResource(R.string.theme_select_title),
         options = themeOptions,
         currentValue = currentTheme,
-        onOptionSelected = {
-            scope.launch { settingsRepo.saveThemePreference(it) }
-        },
+        onOptionSelected = { viewModel.onThemeSelected(it) },
         testTagPrefix = TestTags.THEME_DIALOG
     )
 
+    // Boîte de dialogue pour le choix de langue
     SelectionAlertDialog(
         showDialog = showLanguageDialog,
         onDismissRequest = { showLanguageDialog = false },
         title = stringResource(R.string.language_select_title),
         options = languageOptions,
         currentValue = currentLanguage,
-        onOptionSelected = {
-            scope.launch { settingsRepo.saveLanguagePreference(it) }
-        },
+        onOptionSelected = { viewModel.onLanguageSelected(it) },
         testTagPrefix = TestTags.LANGUAGE_DIALOG
     )
 }

@@ -78,4 +78,5 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.androidx.junit) // Ensure this is testImplementation if not already
+    implementation(libs.androidx.hilt.navigation.compose)
 }
