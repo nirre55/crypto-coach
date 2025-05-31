@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -50,15 +50,10 @@ dependencies {
 
     // Hilt core
     implementation(libs.hilt.android)
-    kapt         (libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
-    // Tests instrumentés
-    androidTestImplementation(libs.hilt.android.testing)
-    kaptAndroidTest         (libs.hilt.compiler)
-
-    // Tests unitaires JVM
-    testImplementation (libs.hilt.android.testing)
-    kaptTest             (libs.hilt.compiler)
+    androidTestImplementation(libs.hilt.android.testing) // Add this line
+    kspAndroidTest(libs.hilt.compiler) // Add this for Hilt's annotation processor in androidTest
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

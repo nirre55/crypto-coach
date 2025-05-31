@@ -1,8 +1,8 @@
-package com.example.cryptocoach.di
+package com.example.cryptocoach.di.test
 
 import android.content.Context
-import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.example.core.SettingsRepository
 import com.example.data.SettingsDataStore
 import com.example.data.dataStore
@@ -15,12 +15,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
-
+object TestAppModule {
     @Provides
     @Singleton
-    fun provideDataStore(@ApplicationContext context: Context):
-            DataStore<Preferences> = context.dataStore
+    fun provideDataStore(@ApplicationContext ctx: Context): DataStore<Preferences> =
+        ctx.dataStore
 
     @Provides
     @Singleton
