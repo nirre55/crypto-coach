@@ -10,9 +10,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import com.example.core.SettingsRepository // Ensure this import is present
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -26,11 +28,10 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CryptoCoachApp() {
-    // ATTENTION : pour simplifier, on laisse pour l’instant le thème "System"
-    // Si vous voulez récupérer le thème choisi en vrai, vous pourriez appeler un viewModel ici,
-    // mais dans la version minimale, on conserve "System" (vous pourrez remplacer plus tard).
-    val themePreferenceString = "System"
+fun CryptoCoachApp(settingsDataStore: SettingsRepository) { // Parameter type changed here
+    // Collect theme preference
+    val themePreferenceString by settingsDataStore.getThemePreference()
+        .collectAsState(initial = "System") // Default to "System"
 
     // NavController + Drawer
     val navController = rememberNavController()
@@ -48,72 +49,75 @@ fun CryptoCoachApp() {
     )
 
     CryptoCoachTheme(themePreferenceString = themePreferenceString) {
-        ModalNavigationDrawer(
-            drawerState = drawerState,
-            drawerContent = {
-                ModalDrawerSheet {
-                    Spacer(Modifier.height(16.dp))
-                    LazyColumn(modifier = Modifier.weight(1f)) {
-                        items(menuItems) { screen ->
-                            DrawerItem(
-                                screen = screen,
-                                currentRoute = currentRoute,
-                                onClick = {
-                                    scope.launch { drawerState.close() }
-                                    navController.navigate(screen.route) {
-                                        launchSingleTop = true
-                                        restoreState = true
-                                    }
-                                },
-                                testTag = "drawer_${screen.route}"
-                            )
-                        }
-                    }
-                    HorizontalDivider()
-                    DrawerItem(
-                        screen = Screen.Settings,
-                        currentRoute = currentRoute,
-                        onClick = {
-                            scope.launch { drawerState.close() }
-                            navController.navigate(Screen.Settings.route) {
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        },
-                        testTag = TestTags.DRAWER_SETTINGS
-                    )
-                    DrawerItem(
-                        screen = Screen.About,
-                        currentRoute = currentRoute,
-                        onClick = {
-                            scope.launch { drawerState.close() }
-                            navController.navigate(Screen.About.route) {
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        },
-                        testTag = TestTags.DRAWER_ABOUT
-                    )
-                }
-            }
-        ) {
-            Scaffold(
-                topBar = {
-                    TopAppBar(
-                        title = { Text(stringResource(R.string.app_name)) },
-                        navigationIcon = {
-                            IconButton(onClick = { scope.launch { drawerState.open() } }) {
-                                Icon(
-                                    Icons.Default.Menu,
-                                    contentDescription = stringResource(R.string.nav_menu)
+        // AppContentWrapper now wraps the part of the UI that needs language updates
+        AppContentWrapper(settingsDataStore = settingsDataStore) {
+            ModalNavigationDrawer(
+                drawerState = drawerState,
+                drawerContent = {
+                    ModalDrawerSheet {
+                        Spacer(Modifier.height(16.dp))
+                        LazyColumn(modifier = Modifier.weight(1f)) {
+                            items(menuItems) { screen ->
+                                DrawerItem(
+                                    screen = screen,
+                                    currentRoute = currentRoute,
+                                    onClick = {
+                                        scope.launch { drawerState.close() }
+                                        navController.navigate(screen.route) {
+                                            launchSingleTop = true
+                                            restoreState = true
+                                        }
+                                    },
+                                    testTag = "drawer_${screen.route}"
                                 )
                             }
                         }
-                    )
+                        HorizontalDivider()
+                        DrawerItem(
+                            screen = Screen.Settings,
+                            currentRoute = currentRoute,
+                            onClick = {
+                                scope.launch { drawerState.close() }
+                                navController.navigate(Screen.Settings.route) {
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            },
+                            testTag = TestTags.DRAWER_SETTINGS
+                        )
+                        DrawerItem(
+                            screen = Screen.About,
+                            currentRoute = currentRoute,
+                            onClick = {
+                                scope.launch { drawerState.close() }
+                                navController.navigate(Screen.About.route) {
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            },
+                            testTag = TestTags.DRAWER_ABOUT
+                        )
+                    }
                 }
-            ) { innerPadding ->
-                Box(modifier = Modifier.padding(innerPadding)) {
-                    AppNavGraph(navController)
+            ) {
+                Scaffold(
+                    topBar = {
+                        TopAppBar(
+                            title = { Text(stringResource(R.string.app_name)) },
+                            navigationIcon = {
+                                IconButton(onClick = { scope.launch { drawerState.open() } }) {
+                                    Icon(
+                                        Icons.Default.Menu,
+                                        contentDescription = stringResource(R.string.nav_menu)
+                                    )
+                                }
+                            }
+                        )
+                    }
+                ) { innerPadding ->
+                    Box(modifier = Modifier.padding(innerPadding)) {
+                        AppNavGraph(navController)
+                    }
                 }
             }
         }

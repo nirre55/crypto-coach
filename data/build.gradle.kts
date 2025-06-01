@@ -1,7 +1,10 @@
 plugins {
     id("com.android.library")
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt) // Ensure kotlin-kapt is present
+    alias(libs.plugins.hilt)       // Add Hilt plugin
 }
+
 android {
     namespace = "com.example.data"
     compileSdk = 35
@@ -24,4 +27,8 @@ dependencies {
 
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore.core.android)
+
+    // Add Hilt dependencies
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 }
