@@ -2,7 +2,7 @@ plugins {
     id("com.android.library")
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.hilt)
-    id("com.google.devtools.ksp") // Apply KSP plugin directly
+    alias(libs.plugins.ksp)
 }
 android {
     namespace = "com.example.data"
