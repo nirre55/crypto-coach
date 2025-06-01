@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt)
+    id("com.google.devtools.ksp") // Apply KSP plugin directly
 }
 android {
     namespace = "com.example.data"
@@ -24,4 +26,8 @@ dependencies {
 
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore.core.android)
+
+    // Add Hilt dependencies
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 }
