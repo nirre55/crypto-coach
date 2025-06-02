@@ -1,6 +1,6 @@
 package com.example.cryptocoach.ui.screen
 
-import com.example.cryptocoach.data.SettingsRepository
+import com.example.core.SettingsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class FakeSettingsRepository : SettingsRepository {

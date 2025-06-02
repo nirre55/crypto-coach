@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -15,7 +17,8 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        //testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.cryptocoach.CustomHiltTestRunner" // Mettez ici le nom complet de votre classe
     }
 
     buildTypes {
@@ -40,7 +43,19 @@ android {
 }
 
 dependencies {
+    // ↓ vos modules internes ↓
+    implementation(project(":core"))
+    implementation(project(":domain"))
+    implementation(project(":data"))
 
+    // Hilt core
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    androidTestImplementation(libs.hilt.android.testing) // Add this line
+    kspAndroidTest(libs.hilt.compiler) // Add this for Hilt's annotation processor in androidTest
+
+    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -64,4 +79,7 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.androidx.junit) // Ensure this is testImplementation if not already
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.material)
+
 }

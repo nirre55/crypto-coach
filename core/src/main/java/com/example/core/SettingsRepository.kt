@@ -1,4 +1,4 @@
-package com.example.cryptocoach.data
+package com.example.core
 
 import kotlinx.coroutines.flow.Flow
 

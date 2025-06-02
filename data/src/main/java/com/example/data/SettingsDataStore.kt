@@ -1,21 +1,24 @@
-package com.example.cryptocoach.data
+package com.example.data
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.example.core.SettingsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-
-
-class SettingsDataStore(private val dataStore: DataStore<Preferences>) : SettingsRepository{
+/**
+ * Implémentation de SettingsRepository via DataStore (Preferences).
+ * Stocke deux clés : THEME_KEY et LANGUAGE_KEY, avec des strings.
+ */
+class SettingsDataStore(private val dataStore: DataStore<Preferences>) : SettingsRepository {
 
     companion object {
         val THEME_KEY = stringPreferencesKey("theme_preference")
         val LANGUAGE_KEY = stringPreferencesKey("language_preference")
         const val DEFAULT_THEME = "System"
-        const val DEFAULT_LANGUAGE = "System"
+        const val DEFAULT_LANGUAGE = "system"
     }
 
     override fun getThemePreference(): Flow<String> {
