@@ -13,28 +13,31 @@ import com.example.cryptocoach.ui.components.PreferenceItem
 import com.example.cryptocoach.ui.components.SelectionAlertDialog
 import com.example.cryptocoach.ui.viewmodel.SettingsViewModel
 import com.example.cryptocoach.utils.TestTags
+import com.example.core.ThemeOption
+import com.example.core.LanguageOption
 
 @Composable
 fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
-    // On récupère directement le StateFlow exposé par le ViewModel
-    val currentTheme by viewModel.themeState.collectAsState()
-    val currentLanguage by viewModel.languageState.collectAsState()
+    // Observer les StateFlow exposés par le ViewModel
+    val currentTheme by viewModel.themeOption.collectAsState()
+    val currentLanguage by viewModel.languageOption.collectAsState()
 
     var showThemeDialog by remember { mutableStateOf(false) }
     var showLanguageDialog by remember { mutableStateOf(false) }
 
+    // Liste des options de thème (affichage texte + valeur enum)
     val themeOptions = listOf(
-        Pair(stringResource(R.string.theme_light), "Light"),
-        Pair(stringResource(R.string.theme_dark), "Dark"),
-        Pair(stringResource(R.string.theme_system), "System")
+        stringResource(R.string.theme_light) to ThemeOption.LIGHT,
+        stringResource(R.string.theme_dark) to ThemeOption.DARK,
+        stringResource(R.string.theme_system) to ThemeOption.SYSTEM
     )
-
+    // Liste des options de langue (affichage texte + valeur enum)
     val languageOptions = listOf(
-        Pair(stringResource(R.string.language_system), "System"),
-        Pair(stringResource(R.string.language_en), "en"),
-        Pair(stringResource(R.string.language_fr), "fr")
+        stringResource(R.string.language_system) to LanguageOption.SYSTEM,
+        stringResource(R.string.language_en) to LanguageOption.ENGLISH,
+        stringResource(R.string.language_fr) to LanguageOption.FRENCH
     )
 
     Column(
@@ -53,8 +56,7 @@ fun SettingsScreen(
 
         PreferenceItem(
             title = stringResource(R.string.theme),
-            currentValue = themeOptions.firstOrNull { it.second == currentTheme }?.first
-                ?: currentTheme,
+            currentValue = themeOptions.first { it.second == currentTheme }.first,
             onClick = { showThemeDialog = true },
             testTag = TestTags.SETTINGS_THEME_ITEM
         )
@@ -62,33 +64,46 @@ fun SettingsScreen(
 
         PreferenceItem(
             title = stringResource(R.string.language),
-            currentValue = languageOptions.firstOrNull { it.second == currentLanguage }?.first
-                ?: currentLanguage,
+            currentValue = languageOptions.first { it.second == currentLanguage }.first,
             onClick = { showLanguageDialog = true },
             testTag = TestTags.SETTINGS_LANGUAGE_ITEM
         )
         HorizontalDivider()
     }
 
-    // Boîte de dialogue pour le choix de thème
-    SelectionAlertDialog(
-        showDialog = showThemeDialog,
-        onDismissRequest = { showThemeDialog = false },
-        title = stringResource(R.string.theme_select_title),
-        options = themeOptions,
-        currentValue = currentTheme,
-        onOptionSelected = { viewModel.onThemeSelected(it) },
-        testTagPrefix = TestTags.THEME_DIALOG
-    )
+    // Boîte de dialogue pour choisir le thème
+    if (showThemeDialog) {
+        SelectionAlertDialog(
+            showDialog = showThemeDialog,
+            onDismissRequest = { showThemeDialog = false },
+            title = stringResource(R.string.theme_select_title),
+            // Conversion en Pair<Affichage, String> où String = storageValue (ThemeOption.storageValue)
+            options = themeOptions.map { it.first to it.second.storageValue },
+            currentValue = currentTheme.storageValue,
+            onOptionSelected = { selectedValue ->
+                val option = ThemeOption.fromStorage(selectedValue)
+                viewModel.onThemeSelected(option)
+                showThemeDialog = false
+            },
+            testTagPrefix = TestTags.THEME_DIALOG
+        )
+    }
 
-    // Boîte de dialogue pour le choix de langue
-    SelectionAlertDialog(
-        showDialog = showLanguageDialog,
-        onDismissRequest = { showLanguageDialog = false },
-        title = stringResource(R.string.language_select_title),
-        options = languageOptions,
-        currentValue = currentLanguage,
-        onOptionSelected = { viewModel.onLanguageSelected(it) },
-        testTagPrefix = TestTags.LANGUAGE_DIALOG
-    )
+    // Boîte de dialogue pour choisir la langue
+    if (showLanguageDialog) {
+        SelectionAlertDialog(
+            showDialog = showLanguageDialog,
+            onDismissRequest = { showLanguageDialog = false },
+            title = stringResource(R.string.language_select_title),
+            // Conversion en Pair<Affichage, String> où String = tag (LanguageOption.tag)
+            options = languageOptions.map { it.first to it.second.tag },
+            currentValue = currentLanguage.tag,
+            onOptionSelected = { selectedValue ->
+                val option = LanguageOption.fromStorage(selectedValue)
+                viewModel.onLanguageSelected(option)
+                showLanguageDialog = false
+            },
+            testTagPrefix = TestTags.LANGUAGE_DIALOG
+        )
+    }
 }

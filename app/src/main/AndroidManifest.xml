@@ -13,13 +13,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CryptoCoach"
         tools:targetApi="31">
+
+        <!--
+          MainActivity déclare :
+          - configChanges="locale|layoutDirection|uiMode" pour empêcher le redémarrage
+          - meta-data autoStoreLocales pour AppCompatDelegate sur API < 33
+        -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.CryptoCoach">
+            android:theme="@style/Theme.CryptoCoach"
+            android:configChanges="locale|layoutDirection|uiMode"
+            >
+            <!--
+              Nécessaire si l’on cible des API Android < 33 :
+              indique à AppCompat de stocker la locale choisie et de l’appliquer.
+            -->
+            <meta-data
+                android:name="autoStoreLocales"
+                android:value="true" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

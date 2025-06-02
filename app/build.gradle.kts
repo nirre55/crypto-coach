@@ -55,6 +55,7 @@ dependencies {
     androidTestImplementation(libs.hilt.android.testing) // Add this line
     kspAndroidTest(libs.hilt.compiler) // Add this for Hilt's annotation processor in androidTest
 
+    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -79,4 +80,6 @@ dependencies {
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.androidx.junit) // Ensure this is testImplementation if not already
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.material)
+
 }

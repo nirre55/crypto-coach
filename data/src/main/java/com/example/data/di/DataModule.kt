@@ -2,10 +2,10 @@ package com.example.data.di
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import com.example.core.SettingsRepository // Added import
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import com.example.core.SettingsRepository
 import com.example.data.SettingsDataStore
 import dagger.Module
 import dagger.Provides
@@ -30,7 +30,7 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideSettingsDataStore(dataStore: DataStore<Preferences>): SettingsRepository { // Return type changed
+    fun provideSettingsRepository(dataStore: DataStore<Preferences>): SettingsRepository {
         return SettingsDataStore(dataStore)
     }
 }
