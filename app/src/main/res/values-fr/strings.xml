@@ -7,6 +7,15 @@
     <string name="settings">Paramètres</string>
     <string name="about">À Propos</string>
 
+    <string name="bullish_candlesticks">Chandeliers haussiers</string>
+    <string name="bearish_candlesticks">Chandeliers baissiers</string>
+    <string name="bullish_patterns">Patterns haussiers</string>
+    <string name="bearish_patterns">Patterns baissiers</string>
+    <string name="desc_bullish_candlesticks">Représentation des chandeliers haussiers.</string>
+    <string name="desc_bearish_candlesticks">Représentation des chandeliers baissiers.</string>
+    <string name="desc_bullish_patterns">Exemples de configurations haussières.</string>
+    <string name="desc_bearish_patterns">Exemples de configurations baissières.</string>
+
     <string name="nav_menu">Menu</string>
 
     <string name="theme">Thème</string>
