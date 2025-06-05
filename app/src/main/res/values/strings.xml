@@ -19,4 +19,6 @@
     <string name="language_fr">French</string>
     <string name="theme_select_title">Select Theme</string>
     <string name="language_select_title">Select Language</string>
+    <string name="cancel">Cancel</string>
+    <string name="preferences">Preferences</string>
 </resources>

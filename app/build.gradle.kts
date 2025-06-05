@@ -21,6 +21,10 @@ android {
         testInstrumentationRunner = "com.example.cryptocoach.CustomHiltTestRunner" // Mettez ici le nom complet de votre classe
     }
 
+    packaging {
+        resources.excludes.add("META-INF/*")
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -68,18 +72,25 @@ dependencies {
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore.core.android)
-    testImplementation(libs.junit)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.material)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(libs.mockk)
+    androidTestImplementation(libs.mockk.android)
+
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
     testImplementation(kotlin("test")) // This is org.jetbrains.kotlin:kotlin-test-junit
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.androidx.junit) // Ensure this is testImplementation if not already
-    implementation(libs.androidx.hilt.navigation.compose)
-    implementation(libs.material)
+    testImplementation(libs.mockk)
+
+
 
 }

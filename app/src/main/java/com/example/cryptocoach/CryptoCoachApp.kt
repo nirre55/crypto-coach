@@ -20,7 +20,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.cryptocoach.navigation.AppNavGraph
 import com.example.cryptocoach.navigation.Screen
 import com.example.cryptocoach.ui.components.DrawerItem
-import com.example.cryptocoach.utils.TestTags
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,13 +32,24 @@ fun CryptoCoachApp() { // Parameter type changed here
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
-    // Les items principaux du Drawer
-    val menuItems = listOf(
+    val mainDrawerScreens = listOf(
         Screen.Dashboard,
         Screen.Education,
         Screen.Patterns,
         Screen.Simulator
     )
+
+    val secondaryDrawerScreens = listOf(
+        Screen.Settings,
+        Screen.About
+    )
+
+    val allScreens = mainDrawerScreens + secondaryDrawerScreens
+
+    val title = currentRoute?.let { route ->
+        allScreens.find { screen -> route.startsWith(screen.route) }?.titleRes
+    } ?: R.string.app_name
+
 
     // AppContentWrapper now wraps the part of the UI that needs language updates
     ModalNavigationDrawer(
@@ -48,13 +58,16 @@ fun CryptoCoachApp() { // Parameter type changed here
             ModalDrawerSheet {
                 Spacer(Modifier.height(16.dp))
                 LazyColumn(modifier = Modifier.weight(1f)) {
-                    items(menuItems) { screen ->
+                    items(mainDrawerScreens) { screen ->
                         DrawerItem(
                             screen = screen,
                             currentRoute = currentRoute,
                             onClick = {
                                 scope.launch { drawerState.close() }
                                 navController.navigate(screen.route) {
+                                    popUpTo(navController.graph.startDestinationId) {
+                                        saveState = true
+                                    }
                                     launchSingleTop = true
                                     restoreState = true
                                 }
@@ -64,37 +77,31 @@ fun CryptoCoachApp() { // Parameter type changed here
                     }
                 }
                 HorizontalDivider()
-                DrawerItem(
-                    screen = Screen.Settings,
-                    currentRoute = currentRoute,
-                    onClick = {
-                        scope.launch { drawerState.close() }
-                        navController.navigate(Screen.Settings.route) {
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    },
-                    testTag = TestTags.DRAWER_SETTINGS
-                )
-                DrawerItem(
-                    screen = Screen.About,
-                    currentRoute = currentRoute,
-                    onClick = {
-                        scope.launch { drawerState.close() }
-                        navController.navigate(Screen.About.route) {
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    },
-                    testTag = TestTags.DRAWER_ABOUT
-                )
+
+                secondaryDrawerScreens.forEach { screen ->
+                    DrawerItem(
+                        screen = screen,
+                        currentRoute = currentRoute,
+                        onClick = {
+                            scope.launch { drawerState.close() }
+                            navController.navigate(screen.route) {
+                                popUpTo(navController.graph.startDestinationId) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        },
+                        testTag = "drawer_${screen.route}"
+                    )
+                }
             }
         }
     ) {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(stringResource(R.string.app_name)) },
+                    title = { Text(text = stringResource(id = title)) },
                     navigationIcon = {
                         IconButton(onClick = { scope.launch { drawerState.open() } }) {
                             Icon(

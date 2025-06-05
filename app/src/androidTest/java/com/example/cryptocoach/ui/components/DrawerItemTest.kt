@@ -1,12 +1,20 @@
 package com.example.cryptocoach.ui.components
 
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.ui.test.*
+import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.cryptocoach.navigation.Screen
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class DrawerItemTest {
 
     @get:Rule
@@ -33,7 +41,7 @@ class DrawerItemTest {
 
         // Clic déclenche le callback
         composeTestRule.onNodeWithTag("drawer_edu").performClick()
-        assert(clicked)
+        assertTrue(clicked)
     }
 
     @Test
@@ -58,6 +66,6 @@ class DrawerItemTest {
 
         // Vérification du clic
         composeTestRule.onNodeWithTag("drawer_sim").performClick()
-        assert(clicked)
+        assertTrue(clicked)
     }
 }
