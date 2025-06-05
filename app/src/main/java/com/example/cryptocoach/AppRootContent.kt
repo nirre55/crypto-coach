@@ -34,13 +34,6 @@ fun AppRootContent() {
     // On “observe” la configuration actuelle du device (utile pour détecter les changements de locale)
     val configuration = LocalConfiguration.current
 
-    // Détermination du mode sombre ou clair
-    /*val useDarkTheme: Boolean = when (themeOption) {
-        com.example.core.ThemeOption.DARK -> true
-        com.example.core.ThemeOption.LIGHT -> false
-        com.example.core.ThemeOption.SYSTEM -> isSystemInDarkTheme()
-    }*/
-
     // Récupérer la locale actuelle (premier élément du LocaleList)
     val currentLocale = ConfigurationCompat.getLocales(configuration)[0]
 
