@@ -1,8 +1,12 @@
 package com.example.cryptocoach.ui.screens
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
@@ -14,44 +18,51 @@ import com.example.cryptocoach.utils.TestTags
 
 @Composable
 fun PatternScreen() {
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .padding(16.dp)
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(16.dp)
     ) {
-        Text(
-            text = stringResource(R.string.patterns),
-            modifier = Modifier
-                .padding(bottom = 8.dp)
-                .testTag(TestTags.PATTERN_TITLE)
-        )
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            Text(
+                text = stringResource(R.string.patterns),
+                modifier = Modifier
+                    .padding(bottom = 8.dp)
+                    .testTag(TestTags.PATTERN_TITLE)
+            )
+        }
 
-        PatternCard(
-            title = stringResource(R.string.bullish_candlesticks),
-            description = stringResource(R.string.desc_bullish_candlesticks),
-            illustration = { BullishCandles() },
-            modifier = Modifier.padding(vertical = 8.dp)
-        )
+        item {
+            PatternCard(
+                title = stringResource(R.string.bullish_candlesticks),
+                description = stringResource(R.string.desc_bullish_candlesticks),
+                illustration = { BullishCandles() }
+            )
+        }
 
-        PatternCard(
-            title = stringResource(R.string.bearish_candlesticks),
-            description = stringResource(R.string.desc_bearish_candlesticks),
-            illustration = { BearishCandles() },
-            modifier = Modifier.padding(vertical = 8.dp)
-        )
+        item {
+            PatternCard(
+                title = stringResource(R.string.bearish_candlesticks),
+                description = stringResource(R.string.desc_bearish_candlesticks),
+                illustration = { BearishCandles() }
+            )
+        }
 
-        PatternCard(
-            title = stringResource(R.string.bullish_patterns),
-            description = stringResource(R.string.desc_bullish_patterns),
-            illustration = { BullishPattern() },
-            modifier = Modifier.padding(vertical = 8.dp)
-        )
+        item {
+            PatternCard(
+                title = stringResource(R.string.bullish_patterns),
+                description = stringResource(R.string.desc_bullish_patterns),
+                illustration = { BullishPattern() }
+            )
+        }
 
-        PatternCard(
-            title = stringResource(R.string.bearish_patterns),
-            description = stringResource(R.string.desc_bearish_patterns),
-            illustration = { BearishPattern() },
-            modifier = Modifier.padding(vertical = 8.dp)
-        )
+        item {
+            PatternCard(
+                title = stringResource(R.string.bearish_patterns),
+                description = stringResource(R.string.desc_bearish_patterns),
+                illustration = { BearishPattern() }
+            )
+        }
     }
 }
