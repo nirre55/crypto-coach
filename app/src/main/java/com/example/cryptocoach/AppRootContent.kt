@@ -55,7 +55,7 @@ fun AppRootContent() {
     androidx.compose.runtime.CompositionLocalProvider(
         LocalLayoutDirection provides layoutDirection
     ) {
-        CryptoCoachTheme(themePreferenceString = themeOption.storageValue) {
+        CryptoCoachTheme(themeOption = themeOption) {
             // Démarrage de la navigation Compose
             CryptoCoachApp()
         }

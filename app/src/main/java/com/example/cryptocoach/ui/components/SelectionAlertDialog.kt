@@ -41,10 +41,7 @@ fun SelectionAlertDialog(
                         ) {
                             RadioButton(
                                 selected = value == currentValue,
-                                onClick = {
-                                    onOptionSelected(value)
-                                    onDismissRequest()
-                                }
+                                onClick = null
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(displayName)

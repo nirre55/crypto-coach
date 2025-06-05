@@ -21,7 +21,7 @@ fun DrawerItem(
         icon = {
             Icon(
                 imageVector = screen.icon,
-                contentDescription = null,
+                contentDescription = stringResource(screen.titleRes),
                 tint = if (selected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
             )
         },
