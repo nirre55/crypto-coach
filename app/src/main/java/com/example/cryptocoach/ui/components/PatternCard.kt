@@ -22,9 +22,9 @@ fun PatternCard(
             .fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(16.dp)
+        Column(
+            modifier = Modifier.padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(
                 modifier = Modifier
@@ -32,13 +32,11 @@ fun PatternCard(
                 contentAlignment = Alignment.Center,
                 content = illustration
             )
-            Spacer(Modifier.width(16.dp))
-            Column {
-                Text(text = title, style = MaterialTheme.typography.titleMedium)
-                if (!description.isNullOrEmpty()) {
-                    Spacer(Modifier.height(4.dp))
-                    Text(text = description, style = MaterialTheme.typography.bodyMedium)
-                }
+            Spacer(Modifier.height(8.dp))
+            Text(text = title, style = MaterialTheme.typography.titleMedium)
+            if (!description.isNullOrEmpty()) {
+                Spacer(Modifier.height(4.dp))
+                Text(text = description, style = MaterialTheme.typography.bodyMedium)
             }
         }
     }
