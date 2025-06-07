@@ -25,3 +25,9 @@ val OnSecondaryDark = Color.Black
 val OnTertiaryDark = Color.Black
 val OnBackgroundDark = Color.White
 val OnSurfaceDark = Color.White
+
+
+val BullishLight = Color(0xFF4CAF50)   // vert
+val BearishLight = Color(0xFFF44336)  // rouge
+val BullishDark  = Color(0xFF81C784)
+val BearishDark  = Color(0xFFE57373)

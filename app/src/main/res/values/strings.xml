@@ -7,6 +7,15 @@
     <string name="settings">Settings</string>
     <string name="about">About</string>
 
+    <string name="bullish_candlesticks">Bullish Candlesticks</string>
+    <string name="bearish_candlesticks">Bearish Candlesticks</string>
+    <string name="bullish_patterns">Bullish Patterns</string>
+    <string name="bearish_patterns">Bearish Patterns</string>
+    <string name="desc_bullish_candlesticks">Representation of bullish candlesticks.</string>
+    <string name="desc_bearish_candlesticks">Representation of bearish candlesticks.</string>
+    <string name="desc_bullish_patterns">Examples of bullish configurations.</string>
+    <string name="desc_bearish_patterns">Examples of bearish configurations.</string>
+
     <string name="nav_menu">Menu</string>
 
     <string name="theme">Theme</string>

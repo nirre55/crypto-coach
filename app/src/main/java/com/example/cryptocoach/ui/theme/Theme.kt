@@ -67,3 +67,8 @@ fun CryptoCoachTheme(
         content = content
     )
 }
+
+object TradingColors {
+    val Bullish  @Composable get() = if (isSystemInDarkTheme()) BullishDark else BullishLight
+    val Bearish  @Composable get() = if (isSystemInDarkTheme()) BearishDark else BearishLight
+}
