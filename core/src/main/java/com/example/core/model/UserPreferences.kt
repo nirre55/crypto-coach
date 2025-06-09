@@ -1,4 +1,4 @@
-package com.example.core
+package com.example.core.model
 
 /**
  * Options possibles pour le thème.

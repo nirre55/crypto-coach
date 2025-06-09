@@ -54,6 +54,7 @@ dependencies {
 
     // Hilt core
     implementation(libs.hilt.android)
+    implementation(libs.androidx.navigation.testing.android)
     ksp(libs.hilt.compiler)
 
     androidTestImplementation(libs.hilt.android.testing) // Add this line

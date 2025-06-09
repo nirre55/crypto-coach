@@ -6,8 +6,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.cryptocoach.ui.screens.SettingsScreen
 import com.example.cryptocoach.ui.viewmodel.SettingsViewModel
 import com.example.cryptocoach.utils.TestTags
-import com.example.core.LanguageOption
-import com.example.core.ThemeOption
+import com.example.core.model.LanguageOption
+import com.example.core.model.ThemeOption
 import com.example.domain.usecase.GetLanguagePreferenceUseCase
 import com.example.domain.usecase.GetThemePreferenceUseCase
 import com.example.domain.usecase.SaveLanguagePreferenceUseCase

@@ -2,8 +2,8 @@ package com.example.cryptocoach.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.LanguageOption
-import com.example.core.ThemeOption
+import com.example.core.model.LanguageOption
+import com.example.core.model.ThemeOption
 import com.example.domain.usecase.GetLanguagePreferenceUseCase
 import com.example.domain.usecase.GetThemePreferenceUseCase
 import com.example.domain.usecase.SaveLanguagePreferenceUseCase

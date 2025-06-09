@@ -15,15 +15,16 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.cryptocoach.R
-import com.example.cryptocoach.ui.components.PatternCard
+import com.example.cryptocoach.model.PatternInfoBase
+import com.example.cryptocoach.model.PatternTypeBase
+import com.example.cryptocoach.ui.components.PatternCardBase
 import com.example.cryptocoach.ui.theme.TradingColors
 
-@Preview(showBackground = true)
 @Composable
-fun PatternScreen() {
+fun PatternScreen(navController: NavHostController) {
     // 1) Lit les couleurs DANS la portée @Composable
     val bullishColor = TradingColors.Bullish
     val bearishColor = TradingColors.Bearish
@@ -45,43 +46,22 @@ fun PatternScreen() {
             )
         }
 
-        val list = listOf(
-            Triple(
-                R.drawable.bullish_candlesticks,
-                R.string.bullish_candlesticks,
-                bullishColor
-            ),
-            Triple(
-                R.drawable.bearish_candlesticks,
-                R.string.bearish_candlesticks,
-                bearishColor
-            ),
-            Triple(
-                R.drawable.bullish_patterns,
-                R.string.bullish_patterns,
-                bullishColor
-            ),
-            Triple(
-                R.drawable.bearish_patterns,
-                R.string.bearish_patterns,
-                bearishColor
-            )
-        )
+        val list = PatternInfoBase.entries.toTypedArray()
 
-        list.forEach { (icon, titleRes, accent) ->
+        list.forEach { pattern ->
             item {
-                PatternCard(
-                    title       = stringResource(titleRes),
-                    description = stringResource(
-                        when (titleRes) {
-                            R.string.bullish_candlesticks -> R.string.desc_bullish_candlesticks
-                            R.string.bearish_candlesticks -> R.string.desc_bearish_candlesticks
-                            R.string.bullish_patterns    -> R.string.desc_bullish_patterns
-                            else                          -> R.string.desc_bearish_patterns
-                        }
-                    ),
-                    imageVector = ImageVector.vectorResource(icon),
-                    accentColor = accent
+                PatternCardBase(
+                    title       = stringResource(pattern.titleRes),
+                    description = stringResource(pattern.descriptionRes),
+                    imageVector = ImageVector.vectorResource(pattern.iconRes),
+                    accentColor = when(pattern.type) {
+                        PatternTypeBase.BULLISH -> bullishColor
+                        PatternTypeBase.BEARISH -> bearishColor
+                    },
+                    onClick = {
+                        // 🔁 Appelle la navigation ici
+                        navController.navigate("patternList/${pattern.group.name}")
+                    }
                 )
             }
         }
