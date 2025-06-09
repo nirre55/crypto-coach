@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -23,13 +24,13 @@ fun PatternCardBase(
     imageVector: ImageVector,
     accentColor: Color,
     modifier: Modifier = Modifier,
-    iconSize: Dp = 100.dp,
+    iconSize: Dp = 80.dp,
     onClick: () -> Unit
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .aspectRatio(1f/ 1.5f)
+            .aspectRatio(1f / 1.5f)
             .padding(8.dp),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
@@ -41,14 +42,13 @@ fun PatternCardBase(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp),
+                .padding(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
         ) {
             // Cercle pastel + icône
             Box(
                 modifier = Modifier
-                    .size(iconSize + 16.dp),
+                    .weight(1f),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
@@ -63,17 +63,21 @@ fun PatternCardBase(
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.titleMedium,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
                 )
                 if (!description.isNullOrEmpty()) {
-                    Spacer(Modifier.height(8.dp))
+                    Spacer(Modifier.height(4.dp))
                     Text(
                         text = description,
                         style = MaterialTheme.typography.bodySmall,
                         textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        maxLines = 3,
+                        overflow = TextOverflow.Ellipsis
                     )
                 }
             }

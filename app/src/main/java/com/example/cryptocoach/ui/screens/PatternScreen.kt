@@ -30,7 +30,7 @@ fun PatternScreen(navController: NavHostController) {
     val bullishColor = TradingColors.Bullish
     val bearishColor = TradingColors.Bearish
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+        columns = GridCells.Adaptive(150.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
         contentPadding = PaddingValues(16.dp)
