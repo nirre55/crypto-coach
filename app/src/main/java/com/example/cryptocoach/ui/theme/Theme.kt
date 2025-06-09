@@ -9,7 +9,7 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import com.example.core.ThemeOption
+import com.example.core.model.ThemeOption
 
 private val DarkColorScheme = darkColorScheme(
     primary = PrimaryDark,
@@ -66,4 +66,9 @@ fun CryptoCoachTheme(
         typography = Typography,
         content = content
     )
+}
+
+object TradingColors {
+    val Bullish  @Composable get() = if (isSystemInDarkTheme()) BullishDark else BullishLight
+    val Bearish  @Composable get() = if (isSystemInDarkTheme()) BearishDark else BearishLight
 }

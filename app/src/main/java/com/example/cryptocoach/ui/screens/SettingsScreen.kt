@@ -13,8 +13,8 @@ import com.example.cryptocoach.ui.components.PreferenceItem
 import com.example.cryptocoach.ui.components.SelectionAlertDialog
 import com.example.cryptocoach.ui.viewmodel.SettingsViewModel
 import com.example.cryptocoach.utils.TestTags
-import com.example.core.ThemeOption
-import com.example.core.LanguageOption
+import com.example.core.model.ThemeOption
+import com.example.core.model.LanguageOption
 
 @Composable
 fun SettingsScreen(
