@@ -38,7 +38,7 @@ fun AppNavGraph(navController: NavHostController) {
         }
 
         // 🔹 Écran liste dynamique : patternList/{type}
-        composable("patternList/{group}") { backStackEntry ->
+        composable(Screen.PatternList.route) { backStackEntry ->
             val group = backStackEntry.arguments?.getString("group")?.let {
                 runCatching { PatternGroup.valueOf(it) }.getOrNull()
             }
@@ -48,14 +48,13 @@ fun AppNavGraph(navController: NavHostController) {
                     group = group,
                     repository = repository,
                     onPatternClick = { id ->
-                        navController.navigate("patternDetail/$id")
+                        navController.navigate(Screen.PatternDetail.routeFor(id))
                     }
                 )
             }
         }
 
-        // 🔹 Écran détail : patternDetail/{id}
-        composable("patternDetail/{id}") { backStackEntry ->
+        composable(Screen.PatternDetail.route) { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id")
             if (id != null) {
                 PatternDetailScreen(

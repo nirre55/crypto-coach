@@ -20,6 +20,7 @@ import androidx.navigation.NavHostController
 import com.example.cryptocoach.R
 import com.example.cryptocoach.model.PatternInfoBase
 import com.example.cryptocoach.model.PatternTypeBase
+import com.example.cryptocoach.navigation.Screen
 import com.example.cryptocoach.ui.components.PatternCardBase
 import com.example.cryptocoach.ui.theme.TradingColors
 
@@ -28,7 +29,6 @@ fun PatternScreen(navController: NavHostController) {
     // 1) Lit les couleurs DANS la portée @Composable
     val bullishColor = TradingColors.Bullish
     val bearishColor = TradingColors.Bearish
-
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -60,7 +60,7 @@ fun PatternScreen(navController: NavHostController) {
                     },
                     onClick = {
                         // 🔁 Appelle la navigation ici
-                        navController.navigate("patternList/${pattern.group.name}")
+                        navController.navigate(Screen.PatternList.routeFor(pattern.group))
                     }
                 )
             }
